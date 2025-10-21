@@ -1,6 +1,7 @@
 import type React from "react"
 import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
+import Image from "next/image"
 import { Analytics } from "@vercel/analytics/react"
 import "./globals.css"
 
@@ -21,6 +22,17 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body className={`${geist.variable} ${geistMono.variable} font-sans antialiased`}>
+        {/* Fixed logo in the top-right corner */}
+        <div className="fixed top-4 right-4 z-50">
+          <Image
+            src="/logo1.png"
+            alt="Logo"
+            width={160}
+            height={60}
+            className="opacity-90 hover:opacity-100 transition drop-shadow"
+            priority
+          />
+        </div>
         {children}
         <Analytics />
       </body>
