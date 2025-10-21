@@ -8,6 +8,13 @@ export default function Home() {
   const [url, setUrl] = useState<string>("");
   const [qr, setQr] = useState<string>("");
   const [size, setSize] = useState<"chico" | "mediano" | "grande">("mediano");
+  const sizeLabels: Record<typeof size, string> = {
+    chico: "Chico (256px)",
+    mediano: "Mediano (512px)",
+    grande: "Grande (1024px)",
+  };
+  const [darkColor, setDarkColor] = useState<string>("#000000");
+  const [lightColor, setLightColor] = useState<string>("#FFFFFF");
 
   const generarQR = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -15,7 +22,7 @@ export default function Home() {
     const res = await fetch("/api/generate-qr", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ url, size }),
+      body: JSON.stringify({ url, size, darkColor, lightColor }),
     });
 
     const data = await res.json();
@@ -90,12 +97,13 @@ export default function Home() {
   };
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen p-6 bg-gray-50">
-      <h1 className="text-3xl font-bold mb-6 text-center text-gray-900">
-        Generador de Códigos QR
-      </h1>
+    <main className="flex items-center justify-center min-h-screen p-4 bg-gray-50">
+      <section className="w-full max-w-xl bg-white p-6 rounded-2xl shadow-md border border-gray-100">
+        <h1 className="text-3xl font-bold mb-6 text-center text-gray-900">
+          Generador de Códigos QR
+        </h1>
 
-      <form onSubmit={generarQR} className="flex flex-col items-center gap-4 bg-white p-6 rounded-xl shadow-sm w-full max-w-md">
+        <form onSubmit={generarQR} className="flex flex-col items-center gap-4">
         <input
           type="url"
           placeholder="Escribe o pega tu enlace"
@@ -119,9 +127,48 @@ export default function Home() {
                     : "bg-gray-100 text-gray-800 border-gray-300 hover:bg-gray-200"
                 }`}
               >
-                {t.charAt(0).toUpperCase() + t.slice(1)}
+                {sizeLabels[t]}
               </button>
             ))}
+          </div>
+        </div>
+
+        <div className="w-full grid grid-cols-2 gap-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Color oscuro</label>
+            <div className="flex items-center gap-2">
+              <input
+                type="color"
+                value={darkColor}
+                onChange={(e) => setDarkColor(e.target.value)}
+                className="h-10 w-10 p-0 border rounded cursor-pointer"
+              />
+              <input
+                type="text"
+                value={darkColor}
+                onChange={(e) => setDarkColor(e.target.value)}
+                className="flex-1 border border-gray-300 rounded px-2 py-2 text-sm"
+                placeholder="#000000"
+              />
+            </div>
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Color claro</label>
+            <div className="flex items-center gap-2">
+              <input
+                type="color"
+                value={lightColor}
+                onChange={(e) => setLightColor(e.target.value)}
+                className="h-10 w-10 p-0 border rounded cursor-pointer"
+              />
+              <input
+                type="text"
+                value={lightColor}
+                onChange={(e) => setLightColor(e.target.value)}
+                className="flex-1 border border-gray-300 rounded px-2 py-2 text-sm"
+                placeholder="#FFFFFF"
+              />
+            </div>
           </div>
         </div>
 
@@ -138,42 +185,43 @@ export default function Home() {
         >
           Limpiar
         </button>
-      </form>
+        </form>
 
-      {qr && (
-        <div className="mt-8 text-center">
-          <NextImage
-            src={qr}
-            alt="Código QR"
-            width={size === "chico" ? 256 : size === "mediano" ? 512 : 1024}
-            height={size === "chico" ? 256 : size === "mediano" ? 512 : 1024}
-            className="mx-auto border rounded-lg shadow-lg"
-          />
-          <div className="mt-4 flex items-center justify-center gap-3">
-            <button
-              type="button"
-              onClick={descargarPNG}
-              className="bg-green-600 text-white px-3 py-2 rounded hover:bg-green-700 transition shadow-sm"
-            >
-              Descargar PNG
-            </button>
-            <button
-              type="button"
-              onClick={descargarJPG}
-              className="bg-amber-600 text-white px-3 py-2 rounded hover:bg-amber-700 transition shadow-sm"
-            >
-              Descargar JPG
-            </button>
-            <button
-              type="button"
-              onClick={descargarPDF}
-              className="bg-red-600 text-white px-3 py-2 rounded hover:bg-red-700 transition shadow-sm"
-            >
-              Descargar PDF
-            </button>
+        {qr && (
+          <div className="mt-8 text-center">
+            <NextImage
+              src={qr}
+              alt="Código QR"
+              width={size === "chico" ? 256 : size === "mediano" ? 384 : 512}
+              height={size === "chico" ? 256 : size === "mediano" ? 384 : 512}
+              className="mx-auto border rounded-lg shadow-lg"
+            />
+            <div className="mt-4 flex items-center justify-center gap-3">
+              <button
+                type="button"
+                onClick={descargarPNG}
+                className="bg-green-600 text-white px-3 py-2 rounded hover:bg-green-700 transition shadow-sm"
+              >
+                Descargar PNG
+              </button>
+              <button
+                type="button"
+                onClick={descargarJPG}
+                className="bg-amber-600 text-white px-3 py-2 rounded hover:bg-amber-700 transition shadow-sm"
+              >
+                Descargar JPG
+              </button>
+              <button
+                type="button"
+                onClick={descargarPDF}
+                className="bg-red-600 text-white px-3 py-2 rounded hover:bg-red-700 transition shadow-sm"
+              >
+                Descargar PDF
+              </button>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </section>
     </main>
   );
 }
