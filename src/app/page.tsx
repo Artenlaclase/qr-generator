@@ -7,6 +7,7 @@ import { jsPDF } from "jspdf";
 export default function Home() {
   const [url, setUrl] = useState<string>("");
   const [qr, setQr] = useState<string>("");
+  const [size, setSize] = useState<"chico" | "mediano" | "grande">("mediano");
 
   const generarQR = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -14,7 +15,7 @@ export default function Home() {
     const res = await fetch("/api/generate-qr", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ url }),
+      body: JSON.stringify({ url, size }),
     });
 
     const data = await res.json();
@@ -89,31 +90,51 @@ export default function Home() {
   };
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen p-6 bg-gray-100">
-      <h1 className="text-3xl font-bold mb-6 text-center">
+    <main className="flex flex-col items-center justify-center min-h-screen p-6 bg-gray-50">
+      <h1 className="text-3xl font-bold mb-6 text-center text-gray-900">
         Generador de Códigos QR
       </h1>
 
-      <form onSubmit={generarQR} className="flex flex-col items-center gap-4">
+      <form onSubmit={generarQR} className="flex flex-col items-center gap-4 bg-white p-6 rounded-xl shadow-sm w-full max-w-md">
         <input
           type="url"
           placeholder="Escribe o pega tu enlace"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
-          className="border border-gray-400 rounded-lg px-4 py-2 w-80"
+          className="border border-gray-300 rounded-lg px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
           required
         />
 
+        <div className="w-full">
+          <label className="block text-sm font-medium text-gray-700 mb-1">Tamaño</label>
+          <div className="grid grid-cols-3 gap-2">
+            {(["chico", "mediano", "grande"] as const).map((t) => (
+              <button
+                key={t}
+                type="button"
+                onClick={() => setSize(t)}
+                className={`px-3 py-2 rounded-lg border text-sm transition ${
+                  size === t
+                    ? "bg-blue-600 text-white border-blue-600"
+                    : "bg-gray-100 text-gray-800 border-gray-300 hover:bg-gray-200"
+                }`}
+              >
+                {t.charAt(0).toUpperCase() + t.slice(1)}
+              </button>
+            ))}
+          </div>
+        </div>
+
         <button
           type="submit"
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
+          className="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition shadow-sm"
         >
           Generar QR
         </button>
         <button
           type="button"
           onClick={limpiar}
-          className="bg-gray-200 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-300 transition"
+          className="w-full bg-gray-100 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-200 transition border"
         >
           Limpiar
         </button>
@@ -124,29 +145,29 @@ export default function Home() {
           <NextImage
             src={qr}
             alt="Código QR"
-            width={256}
-            height={256}
+            width={size === "chico" ? 256 : size === "mediano" ? 512 : 1024}
+            height={size === "chico" ? 256 : size === "mediano" ? 512 : 1024}
             className="mx-auto border rounded-lg shadow-lg"
           />
           <div className="mt-4 flex items-center justify-center gap-3">
             <button
               type="button"
               onClick={descargarPNG}
-              className="bg-green-600 text-white px-3 py-2 rounded hover:bg-green-700 transition"
+              className="bg-green-600 text-white px-3 py-2 rounded hover:bg-green-700 transition shadow-sm"
             >
               Descargar PNG
             </button>
             <button
               type="button"
               onClick={descargarJPG}
-              className="bg-amber-600 text-white px-3 py-2 rounded hover:bg-amber-700 transition"
+              className="bg-amber-600 text-white px-3 py-2 rounded hover:bg-amber-700 transition shadow-sm"
             >
               Descargar JPG
             </button>
             <button
               type="button"
               onClick={descargarPDF}
-              className="bg-red-600 text-white px-3 py-2 rounded hover:bg-red-700 transition"
+              className="bg-red-600 text-white px-3 py-2 rounded hover:bg-red-700 transition shadow-sm"
             >
               Descargar PDF
             </button>
