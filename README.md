@@ -41,8 +41,8 @@ npm run dev
 - URL: https://creaqr.vercel.app/
 
 ## Favicon
-- El favicon principal utilizado por Next.js (App Router) está en `src/app/favicon.ico`.
-- También se incluye `public/favicon.svg` (opcional). Si prefieres usar el SVG como favicon, puedes reemplazar `src/app/favicon.ico` por un `.ico` generado desde ese SVG o ajustar la configuración/archivos de `app` para usar `icon.svg`.
+- Favicon activo: `public/favicon.svg` (se configura vía `metadata.icons` en `src/app/layout.tsx`).
+- Se eliminó el uso de `app/icon.svg` y se recomienda borrar `src/app/favicon.ico` para evitar conflictos.
 
 ## Uso básico
 1. Ingresa una URL en el campo de texto.

@@ -12,6 +12,9 @@ export const metadata: Metadata = {
   title: "Generador de Códigos QR - Crea QR personalizados",
   description: "Genera códigos QR personalizados de forma rápida y sencilla para URLs, textos, emails y teléfonos",
   generator: "v0.app",
+  icons: {
+    icon: "/favicon.svg",
+  },
 }
 
 export default function RootLayout({
