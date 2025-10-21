@@ -1,13 +1,13 @@
 "use client"
 
-import { useState, useRef } from "react"
+import { useState, useRef, type ChangeEvent } from "react"
 import { QRCodeSVG } from "qrcode.react"
-import { Card } from "@/components/ui/card"
-import { Label } from "@/components/ui/label"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Button } from "@/components/ui/button"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Card } from "../components/ui/card"
+import { Label } from "../components/ui/label"
+import { Input } from "../components/ui/input"
+import { Textarea } from "../components/ui/textarea"
+import { Button } from "../components/ui/button"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs"
 import { Download, Link2, Type, Mail, Phone } from "lucide-react"
 
 export function QRGenerator() {
@@ -75,7 +75,7 @@ export function QRGenerator() {
                 type="url"
                 placeholder="https://ejemplo.com"
                 value={qrValue}
-                onChange={(e) => setQrValue(e.target.value)}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => setQrValue(e.target.value)}
               />
             </div>
           </TabsContent>
@@ -87,7 +87,7 @@ export function QRGenerator() {
                 id="text"
                 placeholder="Escribe tu texto aquí..."
                 value={qrValue}
-                onChange={(e) => setQrValue(e.target.value)}
+                onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setQrValue(e.target.value)}
                 rows={4}
               />
             </div>
@@ -101,7 +101,7 @@ export function QRGenerator() {
                 type="email"
                 placeholder="ejemplo@correo.com"
                 value={qrValue.replace("mailto:", "")}
-                onChange={(e) => setQrValue(`mailto:${e.target.value}`)}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => setQrValue(`mailto:${e.target.value}`)}
               />
             </div>
           </TabsContent>
@@ -114,7 +114,7 @@ export function QRGenerator() {
                 type="tel"
                 placeholder="+34 123 456 789"
                 value={qrValue.replace("tel:", "")}
-                onChange={(e) => setQrValue(`tel:${e.target.value}`)}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => setQrValue(`tel:${e.target.value}`)}
               />
             </div>
           </TabsContent>
@@ -132,7 +132,7 @@ export function QRGenerator() {
               max="512"
               step="32"
               value={qrSize}
-              onChange={(e) => setQrSize(Number(e.target.value))}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => setQrSize(Number(e.target.value))}
             />
           </div>
 
@@ -144,13 +144,13 @@ export function QRGenerator() {
                   id="color"
                   type="color"
                   value={qrColor}
-                  onChange={(e) => setQrColor(e.target.value)}
+                  onChange={(e: ChangeEvent<HTMLInputElement>) => setQrColor(e.target.value)}
                   className="h-10 w-full"
                 />
                 <Input
                   type="text"
                   value={qrColor}
-                  onChange={(e) => setQrColor(e.target.value)}
+                  onChange={(e: ChangeEvent<HTMLInputElement>) => setQrColor(e.target.value)}
                   className="font-mono text-sm"
                 />
               </div>
@@ -163,13 +163,13 @@ export function QRGenerator() {
                   id="bgcolor"
                   type="color"
                   value={qrBgColor}
-                  onChange={(e) => setQrBgColor(e.target.value)}
+                  onChange={(e: ChangeEvent<HTMLInputElement>) => setQrBgColor(e.target.value)}
                   className="h-10 w-full"
                 />
                 <Input
                   type="text"
                   value={qrBgColor}
-                  onChange={(e) => setQrBgColor(e.target.value)}
+                  onChange={(e: ChangeEvent<HTMLInputElement>) => setQrBgColor(e.target.value)}
                   className="font-mono text-sm"
                 />
               </div>
@@ -193,7 +193,7 @@ export function QRGenerator() {
           </div>
         </Card>
 
-        <Button onClick={handleDownload} size="lg" className="w-full text-lg">
+        <Button onClick={handleDownload} className="w-full text-lg py-3">
           <Download className="mr-2 h-5 w-5" />
           Descargar código QR
         </Button>
