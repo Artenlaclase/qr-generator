@@ -23,15 +23,22 @@ export default function RootLayout({
     <html lang="es">
       <body className={`${geist.variable} ${geistMono.variable} font-sans antialiased`}>
         {/* Fixed logo in the top-right corner */}
-        <div className="fixed top-4 right-4 z-50">
-          <Image
-            src="/logo1.png"
-            alt="Logo"
-            width={160}
-            height={60}
-            className="opacity-90 hover:opacity-100 transition drop-shadow"
-            priority
-          />
+  <div className="fixed top-4 left-4 z-50">
+          <a
+            href="https://www.artenlaclase.cl"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Ir a www.artenlaclase.cl"
+          >
+            <Image
+              src="/logo1.png"
+              alt="Logo Artenlaclase"
+              width={160}
+              height={60}
+              className="opacity-90 hover:opacity-100 transition drop-shadow"
+              priority
+            />
+          </a>
         </div>
         {children}
         <Analytics />
