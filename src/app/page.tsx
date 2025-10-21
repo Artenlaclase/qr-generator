@@ -17,6 +17,10 @@ export default function Home() {
           <QRGenerator />
         </div>
       </div>
+
+      <footer className="mt-12 border-t py-6 text-center text-sm text-muted-foreground">
+        © {new Date().getFullYear()} <a href="https://www.oceanicaweb.cl" target="_blank" rel="noopener noreferrer" className="underline hover:no-underline">www.oceanicaweb.cl</a>. Todos los derechos reservados.
+      </footer>
     </main>
   );
 }
