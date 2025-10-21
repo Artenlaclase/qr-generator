@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import Image from "next/image"
 import { Analytics } from "@vercel/analytics/react"
+import * as LucideIcons from "lucide-react"
 import "./globals.css"
 
 const geist = Geist({ variable: "--font-geist-sans", subsets: ["latin"] })
@@ -22,6 +23,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const GithubIcon = (LucideIcons as any).Github || (LucideIcons as any).GitHub || null
   return (
     <html lang="es">
       <body className={`${geist.variable} ${geistMono.variable} font-sans antialiased`}>
@@ -41,6 +43,24 @@ export default function RootLayout({
               className="opacity-90 hover:opacity-100 transition drop-shadow"
               priority
             />
+          </a>
+        </div>
+        {/* GitHub repo link - bottom right */}
+        <div className="fixed bottom-4 right-4 z-50">
+          <a
+            href="https://github.com/Artenlaclase/qr-generator"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Ver repositorio en GitHub"
+            className="group"
+          >
+            <span className="inline-flex items-center justify-center rounded-full bg-white/90 border shadow-md p-2 hover:bg-white transition">
+              {GithubIcon ? (
+                <GithubIcon className="h-6 w-6 text-gray-900 group-hover:scale-110 transition-transform" aria-hidden="true" />
+              ) : (
+                <span className="text-sm font-medium text-gray-900">GitHub</span>
+              )}
+            </span>
           </a>
         </div>
         {children}
