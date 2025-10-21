@@ -12,7 +12,8 @@ export async function POST(req: Request) {
     const qrDataUrl = await QRCode.toDataURL(url);
 
     return NextResponse.json({ qrDataUrl });
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Unexpected error";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
