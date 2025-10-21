@@ -3,7 +3,6 @@ import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import Image from "next/image"
 import { Analytics } from "@vercel/analytics/react"
-import * as LucideIcons from "lucide-react"
 import "./globals.css"
 
 const geist = Geist({ variable: "--font-geist-sans", subsets: ["latin"] })
@@ -23,7 +22,23 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const GithubIcon = (LucideIcons as any).Github || (LucideIcons as any).GitHub || null
+  function GitHubIcon(props: React.SVGProps<SVGSVGElement>) {
+    return (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+        {...props}
+      >
+        <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.26-.27-2.5-1-3.5.28-1.15.28-2.35 0-3-1.06 0-2.87.75-4 1.5-2.05-.4-4.19-.4-6 0C7.87 2.75 6.06 2 5 2c-.28.65-.28 1.85 0 3-.73 1-1.08 2.24-1 3.5 0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+      </svg>
+    )
+  }
   return (
     <html lang="es">
       <body className={`${geist.variable} ${geistMono.variable} font-sans antialiased`}>
@@ -55,11 +70,7 @@ export default function RootLayout({
             className="group"
           >
             <span className="inline-flex items-center justify-center rounded-full bg-white/90 border shadow-md p-2 hover:bg-white transition">
-              {GithubIcon ? (
-                <GithubIcon className="h-6 w-6 text-gray-900 group-hover:scale-110 transition-transform" aria-hidden="true" />
-              ) : (
-                <span className="text-sm font-medium text-gray-900">GitHub</span>
-              )}
+              <GitHubIcon className="h-6 w-6 text-gray-900 group-hover:scale-110 transition-transform" />
             </span>
           </a>
         </div>
