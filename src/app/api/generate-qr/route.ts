@@ -11,7 +11,7 @@ export async function POST(req: Request) {
 
     // Mapear tamaño a resolución (px)
     const widthMap: Record<string, number> = {
-      chico: 256,
+      pequeño: 256,
       mediano: 512,
       grande: 1024,
     };

@@ -1,10 +1,10 @@
 ## Generador de Códigos QR
 
-Aplicación web para crear códigos QR de forma rápida y simple. Permite ingresar una URL, elegir tamaño (chico/mediano/grande), personalizar colores (oscuro y claro) y descargar el resultado en PNG, JPG o PDF.
+Aplicación web para crear códigos QR de forma rápida y simple. Permite ingresar una URL, elegir tamaño (pequeño/mediano/grande), personalizar colores (oscuro y claro) y descargar el resultado en PNG, JPG o PDF.
 
 ### Características
 - Generación de QR desde una URL (con normalización automática del protocolo https cuando falta).
-- Tres tamaños predefinidos: Chico (256px), Mediano (512px), Grande (1024px).
+- Tres tamaños predefinidos: Pequeño (256px), Mediano (512px), Grande (1024px).
 - Personalización de colores (color oscuro y color claro en formato HEX).
 - Vista previa inmediata del QR generado.
 - Descarga en múltiples formatos: PNG, JPG y PDF.
@@ -46,7 +46,7 @@ npm run dev
 
 ## Uso básico
 1. Ingresa una URL en el campo de texto.
-2. Selecciona un tamaño (Chico/Mediano/Grande).
+2. Selecciona un tamaño (Pequeño/Mediano/Grande).
 3. (Opcional) Ajusta los colores del QR.
 4. Haz clic en “Generar QR”.
 5. Descarga el QR en el formato que necesites (PNG/JPG/PDF) o usa “Limpiar” para reiniciar.
@@ -57,7 +57,7 @@ La aplicación expone una ruta interna en `POST /api/generate-qr` que recibe JSO
 ```json
 {
 	"url": "https://ejemplo.com",
-	"size": "chico" | "mediano" | "grande",
+		"size": "pequeño" | "mediano" | "grande",
 	"darkColor": "#000000",
 	"lightColor": "#ffffff"
 }

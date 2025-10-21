@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
-type SizeKey = "chico" | "mediano" | "grande";
+type SizeKey = "pequeño" | "mediano" | "grande";
 
 
 export function QRGenerator() {
@@ -106,12 +106,12 @@ export function QRGenerator() {
   };
 
   const sizeLabels: Record<SizeKey, string> = {
-    chico: "Chico (256px)",
+    pequeño: "Pequeño (256px)",
     mediano: "Mediano (512px)",
     grande: "Grande (1024px)",
   };
 
-  const previewSize = size === "chico" ? 256 : size === "mediano" ? 384 : 512;
+  const previewSize = size === "pequeño" ? 256 : size === "mediano" ? 384 : 512;
 
   return (
     <div className="grid gap-8 lg:grid-cols-2">
@@ -139,7 +139,7 @@ export function QRGenerator() {
             <div>
               <Label className="mb-1 block">Tamaño</Label>
               <div className="grid grid-cols-3 gap-2">
-                {(["chico", "mediano", "grande"] as const).map((t) => (
+                {(["pequeño", "mediano", "grande"] as const).map((t) => (
                   <Button
                     key={t}
                     type="button"
